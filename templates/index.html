@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Inteligente de Rotas Hospitalares</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://unpkg.com/cytoscape@3.24.0/dist/cytoscape.min.js"></script>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="hero-panel">
+            <div class="hero-content">
+                <span class="eyebrow">Sistema Inteligente</span>
+                <h1>Sistema de Rotas Hospitalares</h1>
+                <p>Descubra a menor rota entre setores usando BFS e visualize o caminho com animações, estatísticas e um painel profissional.</p>
+            </div>
+            <div class="hero-actions">
+                <div class="control-card">
+                    <label for="originSelect">Origem</label>
+                    <select id="originSelect"></select>
+                </div>
+                <div class="control-card">
+                    <label for="destinationSelect">Destino</label>
+                    <select id="destinationSelect"></select>
+                </div>
+                <button id="runButton" class="primary-button">Calcular rota</button>
+                <div class="status-tag" id="statusTag">Pronto para navegar</div>
+            </div>
+        </div>
+
+        <main class="grid-layout">
+            <section class="graph-panel">
+                <div class="graph-header">
+                    <div>
+                        <span class="label-pill">Grafo hospitalar</span>
+                        <h2>Visão interativa</h2>
+                    </div>
+                    <div class="graph-meta">Zoom, arraste e explore os caminhos.</div>
+                </div>
+                <div id="cy" class="cytoscape-container"></div>
+            </section>
+
+            <aside class="info-panel">
+                <div class="info-card accent-card">
+                    <h3>Painel de informações</h3>
+                    <p>As estatísticas do grafo ajudam na análise de rotas e eficiência dos fluxos hospitalares.</p>
+                </div>
+                <div class="info-card" id="routeInfo">
+                    <h4>Informações da rota</h4>
+                    <p><strong>Origem:</strong> <span id="infoOrigin">-</span></p>
+                    <p><strong>Destino:</strong> <span id="infoDestination">-</span></p>
+                    <p><strong>Distância total:</strong> <span id="infoDistance">-</span></p>
+                    <p><strong>Conexões:</strong> <span id="infoConnections">-</span></p>
+                    <p><strong>Nós visitados:</strong> <span id="infoVisited">-</span></p>
+                </div>
+                <div class="info-card" id="graphStats">
+                    <h4>Estatísticas do grafo</h4>
+                    <p><strong>Total de setores:</strong> <span id="infoNodes">-</span></p>
+                    <p><strong>Total de arestas:</strong> <span id="infoEdges">-</span></p>
+                    <p><strong>Setor mais distante:</strong> <span id="infoMostDistant">-</span></p>
+                    <p><strong>Distância até ele:</strong> <span id="infoFarthest">-</span></p>
+                </div>
+                <div class="info-card stats-grid">
+                    <div>
+                        <span class="stat-title">Animação BFS</span>
+                        <span class="stat-value" id="bfsState">Aguardando ação</span>
+                    </div>
+                    <div>
+                        <span class="stat-title">Toast</span>
+                        <span class="stat-value" id="toastState">Pronto</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <div class="toast" id="toast"></div>
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loader"></div>
+            <span>Processando rota...</span>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
